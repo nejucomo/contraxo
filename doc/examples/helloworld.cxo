@@ -1,0 +1,43 @@
+{
+  "initstate": {
+    "alice": {
+      "balance": 4200e8
+    },
+    "bob-bot": {
+      "balance": 12e8,
+      "code": "$compile[../bob-bot-contract.se]",
+      "state": {
+        "message": "$hex[Hello World]",
+        "count": 0
+      }
+    }
+  },
+  "transactions": [
+    {
+      "from": "alice",
+      "to": "bob-bot",
+      "gas": { "price": 1e4, "step": 2e1 },
+      "amount": 2e8,
+      "args": [ "$hex[greet]" ],
+      "returns": "$hex[Hello World]"
+    }, {
+      "from": "alice",
+      "to": "bob-bot",
+      "gas": { "price": 17e5, "step": 2e1 },
+      "amount": 0,
+      "args": [ "$hex[greet]" ],
+      "returns": "$hex[Hello World]"
+    }
+  ],
+  "assert": {
+    "alice": {
+      "balance": "$arith[4200e8 - 2e8 - 2 * 43 * 2e1]"
+    },
+    "bob-bot": {
+      "balance": 14e8,
+      "state": {
+        "count": 1
+      }
+    }
+  }
+}
