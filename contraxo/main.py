@@ -30,8 +30,9 @@ def parse_args(args):
         help='Set logging level.')
 
     p.add_argument(
-        'SOURCE_ROOT',
-        default='.',
+        'SOURCE',
+        type=argparse.FileType('r'),
+        default='-',
         nargs='?',
         help='Source root directory.')
 

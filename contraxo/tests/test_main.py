@@ -23,22 +23,24 @@ class parse_args_Tests (MockTestCaseBase):
         self.checkCalls(m_PythonLoggingObserver)
 
 
-    def test_implicit_source_root(self):
-        opts = self._test_no_options([])
-        self.assertEqual(opts.SOURCE_ROOT, '.')
+    def test_implicit_source_stdin(self):
+        self._test_no_options([])
 
 
-    def test_explicit_source_root(self):
-        relpath = './path/to/test/cases'
-        opts = self._test_no_options([relpath])
-        self.assertEqual(opts.SOURCE_ROOT, relpath)
+    def test_explicit_source_stdin(self):
+        self._test_no_options(['-'])
 
 
+    def test_explicit_source_path(self):
+        self._test_no_options(['./testcase.json'])
+
+
+    @patch('argparse.FileType')
     @patch('logging.basicConfig')
     @patch('twisted.python.log.PythonLoggingObserver')
     @patch('sys.stderr')
     @patch('sys.stdout')
-    def _test_no_options(self, args, m_stdout, m_stderr, m_PythonLoggingObserver, m_basicConfig):
+    def _test_no_options(self, args, m_stdout, m_stderr, m_PythonLoggingObserver, m_basicConfig, m_FileType):
 
         opts = main.parse_args(args)
 
@@ -57,5 +59,12 @@ class parse_args_Tests (MockTestCaseBase):
             call(),
             call().start())
 
-        return opts
+        if len(args) == 0:
+            args = ['-']
+
+        self.assertEqual(len(args), 1)
+
+        [path] = args
+
+        self.assertIs(opts.SOURCE, m_FileType.return_value.return_value)
 
