@@ -22,15 +22,25 @@ class parse_args_Tests (MockTestCaseBase):
         self.checkCalls(m_basicConfig)
         self.checkCalls(m_PythonLoggingObserver)
 
+
+    def test_implicit_source_root(self):
+        opts = self._test_no_options([])
+        self.assertEqual(opts.SOURCE_ROOT, '.')
+
+
+    def test_explicit_source_root(self):
+        relpath = './path/to/test/cases'
+        opts = self._test_no_options([relpath])
+        self.assertEqual(opts.SOURCE_ROOT, relpath)
+
+
     @patch('logging.basicConfig')
     @patch('twisted.python.log.PythonLoggingObserver')
     @patch('sys.stderr')
     @patch('sys.stdout')
-    def test_no_args(self, m_stdout, m_stderr, m_PythonLoggingObserver, m_basicConfig):
+    def _test_no_options(self, args, m_stdout, m_stderr, m_PythonLoggingObserver, m_basicConfig):
 
-        opts = main.parse_args([])
-
-        self.assertEqual(opts.SOURCE_ROOT, '.')
+        opts = main.parse_args(args)
 
         self.checkCalls(m_stdout)
         self.checkCalls(m_stderr)
@@ -46,3 +56,6 @@ class parse_args_Tests (MockTestCaseBase):
             m_PythonLoggingObserver,
             call(),
             call().start())
+
+        return opts
+
