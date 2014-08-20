@@ -12,11 +12,6 @@ LogFormat = '%(asctime)s %(levelname) 5s %(name)s | %(message)s'
 LogDateFormat = '%Y-%m-%dT%H:%M:%S%z'
 
 
-def main(args = sys.argv[1:]):
-    opts = parse_args(args)
-    raise NotImplementedError('main with opts {0!r}'.format(opts))
-
-
 def parse_args(args):
     p = argparse.ArgumentParser(
         description=Description,
