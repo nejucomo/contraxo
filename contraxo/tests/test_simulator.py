@@ -4,7 +4,7 @@ from contraxo import simulator
 from contraxo.tests.utils import MockTestCaseBase
 
 
-class parse_args_Tests (MockTestCaseBase):
+class SimulatorTests (MockTestCaseBase):
 
     @patch('logging.getLogger')
     def test___init__(self, m_getLogger):
