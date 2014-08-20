@@ -6,6 +6,7 @@ from setuptools import setup, find_packages, Command
 
 PACKAGE = 'contraxo'
 INSTALL_REQUIRES = [
+    'pyethereum >= 0.2.4',
     'twisted >= 14.0',
     'mock >= 1.0.1',
     ]

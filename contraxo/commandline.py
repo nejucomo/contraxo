@@ -2,8 +2,11 @@ import sys
 
 from contraxo import clargs
 from contraxo import simulator
+from contraxo import script
 
 
 def main(args = sys.argv[1:]):
-    clargs.parse_args(args)
-    simulator.Simulator()
+    opts = clargs.parse_args(args)
+    sim = simulator.Simulator()
+    scr = script.Script.load(opts.SOURCE)
+    scr.execute(sim)
