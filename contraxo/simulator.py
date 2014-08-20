@@ -1,6 +1,5 @@
-import logging
+from contraxo.log import LogMixin
 
 
-class Simulator (object):
-    def __init__(self):
-        self._log = logging.getLogger(type(self).__name__)
+class Simulator (LogMixin):
+    pass
