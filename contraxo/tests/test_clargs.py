@@ -3,7 +3,7 @@ import logging
 
 from mock import call, patch
 
-from contraxo import argparse
+from contraxo import clargs
 from contraxo.tests.utils import MockTestCaseBase, ArgStartsWith
 
 
@@ -15,7 +15,7 @@ class parse_args_Tests (MockTestCaseBase):
     @patch('sys.stdout')
     def test_help(self, m_stdout, m_stderr, m_PythonLoggingObserver, m_basicConfig):
 
-        self.assertRaises(SystemExit, argparse.parse_args, ['--help'])
+        self.assertRaises(SystemExit, clargs.parse_args, ['--help'])
 
         self.checkCalls(m_stdout, call.write(ArgStartsWith('usage: ')))
         self.checkCalls(m_stderr)
@@ -42,7 +42,7 @@ class parse_args_Tests (MockTestCaseBase):
     @patch('sys.stdout')
     def _test_no_options(self, args, m_stdout, m_stderr, m_PythonLoggingObserver, m_basicConfig, m_FileType):
 
-        opts = argparse.parse_args(args)
+        opts = clargs.parse_args(args)
 
         self.checkCalls(m_stdout)
         self.checkCalls(m_stderr)
@@ -50,8 +50,8 @@ class parse_args_Tests (MockTestCaseBase):
         self.checkCalls(
             m_basicConfig,
             call(stream=sys.stdout,
-                 format=argparse.LogFormat,
-                 datefmt=argparse.LogDateFormat,
+                 format=clargs.LogFormat,
+                 datefmt=clargs.LogDateFormat,
                  level=logging.INFO))
 
         self.checkCalls(
