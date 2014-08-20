@@ -25,7 +25,7 @@ def main(args = sys.argv[1:]):
 
         entry_points={
             'console_scripts': [
-                '{0} = {0}.main:main'.format(PACKAGE),
+                '{0} = {0}.commandline:main'.format(PACKAGE),
                 ],
             },
 

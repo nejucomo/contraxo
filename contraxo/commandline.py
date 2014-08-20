@@ -1,8 +1,9 @@
 import sys
 
-from contraxo import argparse
+from contraxo import clargs
+from contraxo import simulator
 
 
 def main(args = sys.argv[1:]):
-    opts = argparse.parse_args(args)
-    raise NotImplementedError('main with opts {0!r}'.format(opts))
+    clargs.parse_args(args)
+    simulator.Simulator()
